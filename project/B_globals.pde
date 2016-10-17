@@ -1,3 +1,0 @@
-
-Capture video;
-OpenCV opencv;

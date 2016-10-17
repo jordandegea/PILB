@@ -1,31 +1,20 @@
 
-void setup() {
-  size(640, 480);
-  video = new Capture(this, 640/2, 480/2);
-  opencv = new OpenCV(this, 640/2, 480/2);
-  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
+TestClass1 testClass1;
+Point cameraSize = new Point(640, 400);
+Environnement env = new Environnement();
 
-  video.start();
+void settings(){
+    size(env.cameraSize.x, env.cameraSize.y); 
+}
+
+void setup() {
+  testClass1 = new TestClass1(env, this);
 }
 
 void draw() {
-  scale(2);
-  opencv.loadImage(video);
-
-  image(video, 0, 0 );
-
-  noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  Rectangle[] faces = opencv.detect();
-  println(faces.length);
-
-  for (int i = 0; i < faces.length; i++) {
-    println(faces[i].x + "," + faces[i].y);
-    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-  }
+  testClass1.draw();
 }
 
 void captureEvent(Capture c) {
-  c.read();
+  testClass1.captureEvent(c);
 }
