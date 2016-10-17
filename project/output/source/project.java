@@ -29,41 +29,72 @@ public class project extends PApplet {
 
 
 
-
-
-
-Capture video;
-OpenCV opencv;
-
-public void setup() {
-  size(640, 480);
-  video = new Capture(this, 640/2, 480/2);
-  opencv = new OpenCV(this, 640/2, 480/2);
-  opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
-
-  video.start();
+class Environnement{
+    public Point cameraSize;
+    
+    Environnement(){
+      cameraSize = new Point(640, 400);
+    }
 }
 
-public void draw() {
-  scale(2);
-  opencv.loadImage(video);
 
-  image(video, 0, 0 );
 
-  noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  Rectangle[] faces = opencv.detect();
-  println(faces.length);
 
-  for (int i = 0; i < faces.length; i++) {
-    println(faces[i].x + "," + faces[i].y);
-    rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+
+
+class TestClass1{
+  Capture video;
+  OpenCV opencv;
+
+  TestClass1(Environnement env, PApplet parent){
+    video = new Capture(parent, env.cameraSize.x/2, env.cameraSize.y/2);
+    opencv = new OpenCV(parent, env.cameraSize.x/2, env.cameraSize.y/2);
+    opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
+  
+    video.start();
+  }
+  
+  public void draw() {
+    scale(2);
+    opencv.loadImage(video);
+  
+    image(video, 0, 0 );
+  
+    noFill();
+    stroke(0, 255, 0);
+    strokeWeight(3);
+    Rectangle[] faces = opencv.detect();
+    println(faces.length);
+  
+    for (int i = 0; i < faces.length; i++) {
+      println(faces[i].x + "," + faces[i].y);
+      rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
+    }
+  }
+  
+  public void captureEvent(Capture c) {
+    c.read();
   }
 }
 
+TestClass1 testClass1;
+Point cameraSize = new Point(640, 400);
+Environnement env = new Environnement();
+
+public void settings(){
+    size(env.cameraSize.x, env.cameraSize.y); 
+}
+
+public void setup() {
+  testClass1 = new TestClass1(env, this);
+}
+
+public void draw() {
+  testClass1.draw();
+}
+
 public void captureEvent(Capture c) {
-  c.read();
+  testClass1.captureEvent(c);
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "project" };

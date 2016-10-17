@@ -4,13 +4,13 @@ import processing.video.*;
 import java.awt.*;
 
 
-class TestClass1{
+class TestClass1 extends BaseExecutor{
   Capture video;
   OpenCV opencv;
 
-  TestClass1(Environnement env, PApplet parent){
-    video = new Capture(parent, env.cameraSize.x/2, env.cameraSize.y/2);
-    opencv = new OpenCV(parent, env.cameraSize.x/2, env.cameraSize.y/2);
+  TestClass1(Environnement env){
+    video = new Capture(env.app, env.cameraSize.x/2, env.cameraSize.y/2);
+    opencv = new OpenCV(env.app, env.cameraSize.x/2, env.cameraSize.y/2);
     opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);  
   
     video.start();
