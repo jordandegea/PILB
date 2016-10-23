@@ -1,3 +1,4 @@
+
 import gab.opencv.*;
 import processing.video.*;
 import java.awt.*;
@@ -99,6 +100,7 @@ class TestClass1 extends BaseExecutor{
       }
     
   }
+  
   
   void captureEvent(Capture c) {
     c.read();
