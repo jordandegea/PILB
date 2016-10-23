@@ -100,7 +100,6 @@ class TestClass1 extends BaseExecutor{
     
   }
   
-  
   void captureEvent(Capture c) {
     c.read();
   }
