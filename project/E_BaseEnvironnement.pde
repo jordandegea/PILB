@@ -4,9 +4,7 @@ class Environnement{
     public Projector projector;
     public BaseExecutor executor;
     public PApplet app;
-
-    public Point positionGuy;
-
+    
     public int state;
     
     public static final int SETTING_UP = 1;
@@ -17,7 +15,7 @@ class Environnement{
     
     Environnement(){
       state = SETTING_UP;
-      cameraSize = new Point(1280, 720);
+      cameraSize = new Point(640, 480);
     }
     
     boolean keyPressed(){
