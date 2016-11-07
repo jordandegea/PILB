@@ -29,7 +29,6 @@ class TestClass1 extends BaseExecutor{
   int pixCnt1, pixCnt2;
   int w, h;
   float ratio;
-  int X = 640, Y = 480;
 
   TestClass1(Environnement env){
     video = new Capture(env.app, env.cameraSize.x/2, env.cameraSize.y/2);

@@ -1,13 +1,12 @@
 
 TestClass1 testClass1;
-Point cameraSize = new Point(640, 400);
 Environnement env = new Environnement();
 
 
 void settings(){
     env.projector = new Projector();
     env.app = this;
-    size(env.cameraSize.x, env.cameraSize.y); 
+    size(env.cameraSize.x, env.cameraSize.y);
 }
 
 void setup() {

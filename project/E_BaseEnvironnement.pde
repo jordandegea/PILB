@@ -15,7 +15,7 @@ class Environnement{
     
     Environnement(){
       state = SETTING_UP;
-      cameraSize = new Point(640, 400);
+      cameraSize = new Point(1280, 960);
     }
     
     boolean keyPressed(){
