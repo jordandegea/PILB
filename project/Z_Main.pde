@@ -4,7 +4,7 @@ Environnement env = new Environnement();
 
 
 void settings(){
-    env.projector = new Projector();
+    env.projector = new TestLightProjector(env);
     env.app = this;
     size(env.cameraSize.x, env.cameraSize.y);
 }

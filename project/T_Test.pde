@@ -51,29 +51,35 @@ class TestClass1 extends BaseExecutor{
     stroke(0, 255, 0);
     strokeWeight(2);
     
+    findPeople();
+    env.projector.updateMove(env.positionGuy);
+    println("lolol");
+  }
+
+  void findPeople(){
     //TRY TO FIND LOWER BODY
     Rectangle[] lb = findLowerBody();
     //IF LowerBodies not found, try to look for face
     if (lb.length == 0){
      findFace();
     }
-    
   }
   
   Rectangle[] findLowerBody(){
     
     opencv.loadCascade(OpenCV.CASCADE_LOWERBODY); 
     Rectangle[] lowerbodies = opencv.detect();
-    println(lowerbodies.length);
+    //println(lowerbodies.length);
   
     for (int i = 0; i < lowerbodies.length; i++) {
-      println(lowerbodies[i].x + "," + lowerbodies[i].y);
+      //println(lowerbodies[i].x + "," + lowerbodies[i].y);
       stroke(0, 255, 0);
       rect(lowerbodies[i].x, lowerbodies[i].y, lowerbodies[i].width, lowerbodies[i].height);
       stroke(255, 0, 0);
       ellipse(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y , 4, 4);
       
-      println("POSITION FOR LIGHT(LOWER BODY):" + lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y );
+      //println("POSITION FOR LIGHT(LOWER BODY):" + lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y );
+        env.positionGuy = new Point(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y);
 
     }
     
@@ -85,17 +91,18 @@ class TestClass1 extends BaseExecutor{
     
      opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE); 
       Rectangle[] faces = opencv.detect();
-      println(faces.length);
+      //println(faces.length);
       
       for (int i = 0; i < faces.length; i++) {
-        println(faces[i].x + "," + faces[i].y);
+        //println(faces[i].x + "," + faces[i].y);
         stroke(0, 255, 0);
         rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
         stroke(255, 0, 0);
         ellipse(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2 , 4, 4);
         
-        println("POSITION FOR LIGHT (FACE):" + faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2 );
+        //println("POSITION FOR LIGHT (FACE):" + faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2 );
         
+        env.positionGuy = new Point(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2);
       }
     
   }

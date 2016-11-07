@@ -46,7 +46,9 @@ class Environnement{
     public Projector projector;
     public BaseExecutor executor;
     public PApplet app;
-    
+
+    public Point positionGuy;
+
     public int state;
     
     public static final int SETTING_UP = 1;
@@ -57,7 +59,7 @@ class Environnement{
     
     Environnement(){
       state = SETTING_UP;
-      cameraSize = new Point(1280, 960);
+      cameraSize = new Point(1280, 720);
     }
     
     public boolean keyPressed(){
@@ -78,11 +80,75 @@ class Projector{
   Projector(){
     position = new Point(0,0);
   }
+  public boolean updateMove(Point positionGuy){
+  return true;
+  }
   
   public boolean moveTo(Point dest){
     return true; 
   }
   
+  public boolean moveUp(){
+    return true;
+  }
+  public boolean moveUpRight(){
+    return true;
+  }
+  public boolean moveRight(){
+    return true;
+  }
+  public boolean moveDownRight(){
+    return true;
+  }
+  public boolean moveDown(){
+    return true;
+  }
+  public boolean moveDownLeft(){
+    return true;
+  }
+  public boolean moveLeft(){
+    return true;
+  }
+  public boolean moveUpLeft(){
+    return true;
+  }
+}
+class TestLightProjector extends Projector{
+
+  private Point positionCenter;
+  private Point move;
+  Environnement env;
+
+  TestLightProjector(Environnement pEnv){
+    this.env = pEnv;
+    positionCenter = new Point(env.cameraSize.x/4,env.cameraSize.y/4);
+    move = new Point(0,0);
+  }
+  
+  public boolean updateMove(Point positionGuy){
+    move.x = positionGuy.x - positionCenter.x;
+    move.y = positionGuy.y - positionCenter.y;
+    //afficher direction d\u00e9placement
+    if(move.x>0)
+      println("->" + move.x,positionGuy.x, positionCenter.x);
+    else
+      println("<-" + move.x,positionGuy.x, positionCenter.x);
+
+
+    //stroke(0, 255, 0);
+    //text("Hello Strings!",10,100);   // STEP 5 Display Text
+    //rect(positionCenter.x, positionCenter.y, 50, 50);
+    //stroke(255, 0, 0);
+    //ellipse(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2 , 4, 4);
+
+
+    return true; 
+  }
+  
+  public Point getMove(){
+    return move;
+  }
+
   public boolean moveUp(){
     return true;
   }
@@ -170,29 +236,35 @@ class TestClass1 extends BaseExecutor{
     stroke(0, 255, 0);
     strokeWeight(2);
     
+    findPeople();
+    env.projector.updateMove(env.positionGuy);
+    println("lolol");
+  }
+
+  public void findPeople(){
     //TRY TO FIND LOWER BODY
     Rectangle[] lb = findLowerBody();
     //IF LowerBodies not found, try to look for face
     if (lb.length == 0){
      findFace();
     }
-    
   }
   
   public Rectangle[] findLowerBody(){
     
     opencv.loadCascade(OpenCV.CASCADE_LOWERBODY); 
     Rectangle[] lowerbodies = opencv.detect();
-    println(lowerbodies.length);
+    //println(lowerbodies.length);
   
     for (int i = 0; i < lowerbodies.length; i++) {
-      println(lowerbodies[i].x + "," + lowerbodies[i].y);
+      //println(lowerbodies[i].x + "," + lowerbodies[i].y);
       stroke(0, 255, 0);
       rect(lowerbodies[i].x, lowerbodies[i].y, lowerbodies[i].width, lowerbodies[i].height);
       stroke(255, 0, 0);
       ellipse(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y , 4, 4);
       
-      println("POSITION FOR LIGHT(LOWER BODY):" + lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y );
+      //println("POSITION FOR LIGHT(LOWER BODY):" + lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y );
+        env.positionGuy = new Point(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y);
 
     }
     
@@ -204,17 +276,18 @@ class TestClass1 extends BaseExecutor{
     
      opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE); 
       Rectangle[] faces = opencv.detect();
-      println(faces.length);
+      //println(faces.length);
       
       for (int i = 0; i < faces.length; i++) {
-        println(faces[i].x + "," + faces[i].y);
+        //println(faces[i].x + "," + faces[i].y);
         stroke(0, 255, 0);
         rect(faces[i].x, faces[i].y, faces[i].width, faces[i].height);
         stroke(255, 0, 0);
         ellipse(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2 , 4, 4);
         
-        println("POSITION FOR LIGHT (FACE):" + faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2 );
+        //println("POSITION FOR LIGHT (FACE):" + faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2 );
         
+        env.positionGuy = new Point(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2);
       }
     
   }
@@ -230,7 +303,7 @@ Environnement env = new Environnement();
 
 
 public void settings(){
-    env.projector = new Projector();
+    env.projector = new TestLightProjector(env);
     env.app = this;
     size(env.cameraSize.x, env.cameraSize.y);
 }

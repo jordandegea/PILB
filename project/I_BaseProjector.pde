@@ -5,6 +5,9 @@ class Projector{
   Projector(){
     position = new Point(0,0);
   }
+  public boolean updateMove(Point positionGuy){
+  return true;
+  }
   
   public boolean moveTo(Point dest){
     return true; 
