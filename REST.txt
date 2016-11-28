@@ -1,0 +1,21 @@
+#Horizontal
+curl \
+	--header "Content-Type: text/plain" \
+	--request PUT \
+	--data 44 \
+	http://192.168.0.85:8080/rest/items/LYRE_PAN/state
+
+
+curl \
+	--header "Content-Type: text/plain" \
+	--request PUT \
+	--data 70 \
+	http://192.168.0.85:8080/rest/items/LYRE_TILT/state
+
+
+
+curl \
+	--header "Content-Type: text/plain" \
+	--request PUT \
+	--data 50 \
+	http://192.168.0.85:8080/rest/items/LYRE_SPEED/state
