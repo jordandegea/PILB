@@ -44,7 +44,7 @@ class TestClass1 extends BaseExecutor{
     
    
    
-    video = new Capture(env.app, env.cameraSize.x/2 , env.cameraSize.y/2, cameras[55], 30);
+    video = new Capture(env.app, env.cameraSize.x/2 , env.cameraSize.y/2, cameras[0], 30);
     opencv = new OpenCV(env.app, env.cameraSize.x/2, env.cameraSize.y/2);
     
   
