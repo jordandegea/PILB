@@ -20,3 +20,4 @@ Pour ce projet, nous décidons d'uiliser une caméra qui sera devant la scène p
 
 
 - Creation de l'étalonnage des personnes
+

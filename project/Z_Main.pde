@@ -7,17 +7,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.apache.http.entity.StringEntity;
-
+import java.io.*;
+import java.net.*;
 
 
 TestClass1 testClass1;
@@ -25,30 +16,14 @@ Environnement env = new Environnement();
 
 
 void settings(){
-    env.projector = new TestLightProjector(env);
+    TestLightProjector light = new TestLightProjector(env);
+    env.projector = light;
+    light.sendCommand(1);
+    light.sendCommand(2);
+    light.sendCommand(3);
     env.app = this;
     size(env.cameraSize.x, env.cameraSize.y);
     
-    
-    try {
-      DefaultHttpClient httpClient = new DefaultHttpClient();
-      HttpPut httpPut = new HttpPut("http://192.168.0.85:8080/rest/items/LYRE_PAN/state");
-
-      httpPut.setEntity(new StringEntity("76"));
-      
-      HttpResponse response;
-      response = httpClient.execute( httpPut );
-      HttpEntity   entity   = response.getEntity();
-      EntityUtils.toString(response.getEntity());
-    //this.content = EntityUtils.toString(response.getEntity());
-
-      if( entity != null ) EntityUtils.consume(entity);
-
-      httpClient.getConnectionManager().shutdown();
-
-    } catch( Exception e ) { 
-      e.printStackTrace(); 
-    }
 }
 
 void setup() {

@@ -1,3 +1,6 @@
+import java.io.*;
+import java.net.*;
+
 class TestLightProjector extends Projector{
 
   private Point positionCenter;
@@ -8,6 +11,12 @@ class TestLightProjector extends Projector{
     this.env = pEnv;
     positionCenter = new Point(env.cameraSize.x/4,env.cameraSize.y/4);
     move = new Point(0,0);
+  
+    init();
+  }
+
+  public void init(){
+
   }
   
   public boolean updateMove(Point positionGuy){
@@ -57,5 +66,35 @@ class TestLightProjector extends Projector{
   }
   public boolean moveUpLeft(){
     return true;
+  }
+
+
+  public final static int OBJ_LYRE_PAN = 1;
+  public final static int OBJ_LYRE_TILT = 2;
+  public final static int OBJ_LYRE_COLOR = 3;
+
+  private String STATE_LYRE_PAN = "50" ;
+  private String STATE_LYRE_TILT = "50" ;
+  private String STATE_LYRE_COLOR = "0,0,100" ;
+
+
+  public void sendCommand(int obj){
+
+    try {
+      String url = "http://192.168.0.85:8080/CMD?";
+      switch(obj){
+        case OBJ_LYRE_PAN: url += "LYRE_PAN="+STATE_LYRE_PAN ; break;
+        case OBJ_LYRE_TILT: url += "LYRE_TILT="+STATE_LYRE_TILT ; break;
+        case OBJ_LYRE_COLOR: url += "LYRE_COLOR=" + STATE_LYRE_COLOR ; break;
+        default: break;
+      }
+     GetRequest get = new GetRequest(url);
+      get.send();
+      println("Reponse Content: " + get.getContent());
+      println("Reponse Content-Length Header: " + get.getHeader("Content-Length"));
+
+    } catch( Exception e ) { 
+      e.printStackTrace(); 
+    }
   }
 }
