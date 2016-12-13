@@ -6,7 +6,8 @@ class TestLightProjector extends Projector{
   private Point positionCenter;
   private Point move;
   Environnement env;
-
+  long time = System.currentTimeMillis();
+  
   TestLightProjector(Environnement pEnv){
     this.env = pEnv;
     positionCenter = new Point(env.cameraSize.x/4,env.cameraSize.y/4);
@@ -16,17 +17,35 @@ class TestLightProjector extends Projector{
   }
 
   public void init(){
-
   }
   
   public boolean updateMove(Point positionGuy){
+    if (System.currentTimeMillis() - time < 1000){
+      return true;
+    }
+    
+    time = System.currentTimeMillis();
     move.x = positionGuy.x - positionCenter.x;
     move.y = positionGuy.y - positionCenter.y;
     //afficher direction déplacement
-    if(move.x>0)
+    if(move.x>0){
       println("->" + move.x,positionGuy.x, positionCenter.x);
-    else
+      STATE_LYRE_PAN++;
+      sendCommand(OBJ_LYRE_PAN);
+    }else if(move.x<0){
       println("<-" + move.x,positionGuy.x, positionCenter.x);
+      STATE_LYRE_PAN--;
+      sendCommand(OBJ_LYRE_PAN);
+    }
+    if(move.y>0){
+      println("h" + move.x,positionGuy.y, positionCenter.y);
+      STATE_LYRE_TILT++;
+      sendCommand(OBJ_LYRE_TILT);
+    }else if(move.y<0){
+      println("b" + move.x,positionGuy.y, positionCenter.y);
+      STATE_LYRE_TILT--;
+      sendCommand(OBJ_LYRE_TILT);
+    }
 
 
     //stroke(0, 255, 0);
@@ -73,8 +92,8 @@ class TestLightProjector extends Projector{
   public final static int OBJ_LYRE_TILT = 2;
   public final static int OBJ_LYRE_COLOR = 3;
 
-  private String STATE_LYRE_PAN = "50" ;
-  private String STATE_LYRE_TILT = "50" ;
+  private int STATE_LYRE_PAN = 50 ;
+  private int STATE_LYRE_TILT = 50 ;
   private String STATE_LYRE_COLOR = "0,0,100" ;
 
 
@@ -88,7 +107,9 @@ class TestLightProjector extends Projector{
         case OBJ_LYRE_COLOR: url += "LYRE_COLOR=" + STATE_LYRE_COLOR ; break;
         default: break;
       }
-     GetRequest get = new GetRequest(url);
+      url += "&__async=true&__source=waHome";
+
+      GetRequest get = new GetRequest(url);
       get.send();
       println("Reponse Content: " + get.getContent());
       println("Reponse Content-Length Header: " + get.getHeader("Content-Length"));
