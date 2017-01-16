@@ -21,3 +21,9 @@ Pour ce projet, nous décidons d'uiliser une caméra qui sera devant la scène p
 
 - Creation de l'étalonnage des personnes
 
+## Comment l'utiliser
+
+- Se connecter à la WiFi du labo
+- Se connecter en ssh à pi@192.168.0.85, password raspberry
+- Lancer openhab /home/pi/openhab1.8/runtime/start.sh
+- Aller sur la page http://192.168.0.85:8080/openhab.app?sitemap=main
