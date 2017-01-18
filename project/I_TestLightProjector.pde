@@ -20,9 +20,11 @@ class TestLightProjector extends Projector{
   }
   
   public boolean updateMove(Point positionGuy){
-    if (System.currentTimeMillis() - time < 1000){
+    /*if (System.currentTimeMillis() - time < 1000){
       return true;
-    }
+    }*/
+      println("salut");
+    
     
     time = System.currentTimeMillis();
     move.x = positionGuy.x - positionCenter.x;

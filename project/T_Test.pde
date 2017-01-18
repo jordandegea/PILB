@@ -86,7 +86,7 @@ class TestClass1 extends BaseExecutor{
       rect(lowerbodies[i].x, lowerbodies[i].y, lowerbodies[i].width, lowerbodies[i].height);
       stroke(255, 0, 0);
       ellipse(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y + lowerbodies[i].height , 4, 4);
-      
+      env.projector.updateMove(new Point(lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y + lowerbodies[i].height));
       println("POSITION FOR LIGHT(UPPER BODY):" + lowerbodies[i].x + lowerbodies[i].width / 2, lowerbodies[i].y + lowerbodies[i].height );
 
     }
@@ -108,6 +108,7 @@ class TestClass1 extends BaseExecutor{
         stroke(255, 0, 0);
         ellipse(faces[i].x + faces[i].width / 2, faces[i].y + faces[i].height / 2 , 4, 4);
         
+      env.projector.updateMove(new Point(faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2));
         println("POSITION FOR LIGHT (PEDESTRIAN):" + faces[i].x + faces[i].width / 2 , faces[i].y + faces[i].height / 2 );
         
       }
