@@ -17,14 +17,14 @@ class TestLightProjector extends Projector{
   }
 
   public void init(){
+    this.sendCommand(3);
+    this.sendCommand(4);
   }
   
   public boolean updateMove(Point positionGuy){
-    /*if (System.currentTimeMillis() - time < 1000){
+    if (System.currentTimeMillis() - time < 1000){
       return true;
-    }*/
-      println("salut");
-    
+    }
     
     time = System.currentTimeMillis();
     move.x = positionGuy.x - positionCenter.x;
@@ -32,20 +32,20 @@ class TestLightProjector extends Projector{
     //afficher direction déplacement
     if(move.x>0){
       println("->" + move.x,positionGuy.x, positionCenter.x);
-      STATE_LYRE_PAN++;
+      STATE_LYRE_PAN--;
       sendCommand(OBJ_LYRE_PAN);
     }else if(move.x<0){
       println("<-" + move.x,positionGuy.x, positionCenter.x);
-      STATE_LYRE_PAN--;
+      STATE_LYRE_PAN++;
       sendCommand(OBJ_LYRE_PAN);
     }
     if(move.y>0){
       println("h" + move.x,positionGuy.y, positionCenter.y);
-      STATE_LYRE_TILT++;
+      STATE_LYRE_TILT--; // Not a mistake
       sendCommand(OBJ_LYRE_TILT);
     }else if(move.y<0){
       println("b" + move.x,positionGuy.y, positionCenter.y);
-      STATE_LYRE_TILT--;
+      STATE_LYRE_TILT++;
       sendCommand(OBJ_LYRE_TILT);
     }
 
@@ -93,10 +93,12 @@ class TestLightProjector extends Projector{
   public final static int OBJ_LYRE_PAN = 1;
   public final static int OBJ_LYRE_TILT = 2;
   public final static int OBJ_LYRE_COLOR = 3;
+  public final static int OBJ_LYRE_STROBE = 4;
 
   private int STATE_LYRE_PAN = 50 ;
-  private int STATE_LYRE_TILT = 50 ;
-  private String STATE_LYRE_COLOR = "0,0,100" ;
+  private int STATE_LYRE_TILT = 90 ;
+  private String STATE_LYRE_COLOR = "65,26,100" ;
+  private String STATE_LYRE_STROBE = "50" ;
 
 
   public void sendCommand(int obj){
@@ -107,6 +109,7 @@ class TestLightProjector extends Projector{
         case OBJ_LYRE_PAN: url += "LYRE_PAN="+STATE_LYRE_PAN ; break;
         case OBJ_LYRE_TILT: url += "LYRE_TILT="+STATE_LYRE_TILT ; break;
         case OBJ_LYRE_COLOR: url += "LYRE_COLOR=" + STATE_LYRE_COLOR ; break;
+        case OBJ_LYRE_STROBE: url += "LYRE_STROBE=" + STATE_LYRE_STROBE ; break;
         default: break;
       }
       url += "&__async=true&__source=waHome";

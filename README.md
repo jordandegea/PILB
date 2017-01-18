@@ -1,11 +1,28 @@
-# Installation
+# Projet d'Infrastructure Logicielle pour le Bâtiment Intelligent
+
+Suivi éclairé d'une personne
+
+- Jordan DE GEA
+- Jean BOUVATIER
+- Moreno LA QUATRA
+- Danilo CAZZOLLA
+- Raynald DANTIGNY
+
+
+## Links
+`http://fablab.ensimag.fr/index.php?title=PILBI-2016-Team2`
+
+`https://github.com/jordandegea/PILB`
+
+
+## Installation
 
 Download on https://processing.org/download/?processing
 Add library OpenCV in Processing
 Add library GSTreamer
 
 
-# Projet
+## Projet
 
 L'objectif est de suivre une personne sur une surface spécifique. 
 Pour ce projet, nous décidons d'uiliser une caméra qui sera devant la scène pour identifier les personnes. 

@@ -1,4 +1,7 @@
 #Horizontal
+
+http://192.168.0.85:8080/CMD?LYRE_PAN=30&__async=true&__source=waHome
+
 curl \
 	--header "Content-Type: text/plain" \
 	--request PUT \
