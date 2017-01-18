@@ -30,15 +30,16 @@ class TestLightProjector extends Projector{
     move.x = positionGuy.x - positionCenter.x;
     move.y = positionGuy.y - positionCenter.y;
     //afficher direction déplacement
-    if(move.x>0){
+    if(move.x>50){
       println("->" + move.x,positionGuy.x, positionCenter.x);
-      STATE_LYRE_PAN--;
+      STATE_LYRE_PAN-=1;
       sendCommand(OBJ_LYRE_PAN);
-    }else if(move.x<0){
+    }else if(move.x<20){
       println("<-" + move.x,positionGuy.x, positionCenter.x);
-      STATE_LYRE_PAN++;
+      STATE_LYRE_PAN+=1;
       sendCommand(OBJ_LYRE_PAN);
     }
+    /*
     if(move.y>0){
       println("h" + move.x,positionGuy.y, positionCenter.y);
       STATE_LYRE_TILT--; // Not a mistake
@@ -47,7 +48,7 @@ class TestLightProjector extends Projector{
       println("b" + move.x,positionGuy.y, positionCenter.y);
       STATE_LYRE_TILT++;
       sendCommand(OBJ_LYRE_TILT);
-    }
+    }*/
 
 
     //stroke(0, 255, 0);
@@ -96,8 +97,8 @@ class TestLightProjector extends Projector{
   public final static int OBJ_LYRE_STROBE = 4;
 
   private int STATE_LYRE_PAN = 50 ;
-  private int STATE_LYRE_TILT = 90 ;
-  private String STATE_LYRE_COLOR = "65,26,100" ;
+  private int STATE_LYRE_TILT = 83 ;
+  private String STATE_LYRE_COLOR = "0,0,100" ;
   private String STATE_LYRE_STROBE = "50" ;
 
 
