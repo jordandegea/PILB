@@ -20,7 +20,7 @@ Suivi éclairé d'une personne
 Download on https://processing.org/download/?processing
 Add library OpenCV in Processing
 Add library GSTreamer
-
+Add library HTTPRequests
 
 ## Projet
 
